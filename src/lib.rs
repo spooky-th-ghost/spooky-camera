@@ -130,7 +130,7 @@ impl PrimaryCamera {
 impl Default for PrimaryCamera {
     fn default() -> Self {
         PrimaryCamera {
-            offset: Vec3::new(-1.0, 0.5, -6.0),
+            offset: Vec3::new(0.0, 0.5, -6.0),
             x_angle: 0.0,
             y_angle: 0.0,
             target: Vec3::ZERO,
@@ -158,6 +158,7 @@ fn position_and_rotate_camera(
         let y_angle = camera.y_angle.to_radians();
 
         starting_transform.rotate_y(y_angle);
+        starting_transform.rotate_x(x_angle);
 
         let forward = starting_transform.forward().normalize();
         let right = starting_transform.right().normalize();
