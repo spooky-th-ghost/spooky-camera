@@ -70,6 +70,7 @@ pub struct CameraLimits {
     pub z: CameraAxisLimit,
 }
 
+#[derive(PartialEq)]
 pub enum CameraMode {
     ThirdPersonOrbit,
     FirstPerson,
@@ -158,7 +159,9 @@ fn position_and_rotate_camera(
         let y_angle = camera.y_angle.to_radians();
 
         starting_transform.rotate_y(y_angle);
-        starting_transform.rotate_x(x_angle);
+        if camera.mode == CameraMode::ThirdPersonOrbit {
+            starting_transform.rotate_x(x_angle);
+        }
 
         let forward = starting_transform.forward().normalize();
         let right = starting_transform.right().normalize();
