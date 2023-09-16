@@ -1,5 +1,12 @@
 use bevy::prelude::*;
 
+mod prelude {
+    pub use crate::{
+        CameraAxisLimit, CameraFocus, CameraLimits, CameraMode, PrimaryCamera, SpookyCameraPlugin,
+        Wrap,
+    };
+}
+
 pub struct SpookyCameraPlugin;
 
 impl Plugin for SpookyCameraPlugin {
