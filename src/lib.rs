@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-mod prelude {
+pub mod prelude {
     pub use crate::{
         CameraAxisLimit, CameraFocus, CameraLimits, CameraMode, PrimaryCamera, SpookyCameraPlugin,
         Wrap,
