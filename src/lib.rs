@@ -37,7 +37,7 @@ impl CameraFocus {
     }
 
     pub fn forward_flat(&self) -> Vec3 {
-        let mut forward_vec = self.right;
+        let mut forward_vec = self.forward;
         forward_vec.y = 0.0;
         forward_vec
     }
