@@ -157,18 +157,22 @@ fn position_and_rotate_camera(
         let mut starting_transform = Transform::from_translation(camera.target);
         let x_angle = camera.x_angle.to_radians();
         let y_angle = camera.y_angle.to_radians();
-        starting_transform.rotate_y(y_angle);
 
         let desired_position = match camera.mode {
-            CameraMode::FirstPerson => starting_transform.translation + (Vec3::Y * camera.offset.y),
+            CameraMode::FirstPerson => {
+                starting_transform.rotate_y(y_angle);
+                starting_transform.translation + (Vec3::Y * camera.offset.y)
+            }
             CameraMode::ThirdPersonOrbit => {
                 starting_transform.rotate_x(x_angle);
+                starting_transform.rotate_y(y_angle);
                 let forward = starting_transform.forward().normalize();
                 let right = starting_transform.right().normalize();
+                let up = starting_transform.up().normalize();
                 starting_transform.translation
                     + (forward * camera.offset.z)
                     + (right * camera.offset.x)
-                    + (Vec3::Y * camera.offset.y)
+                    + (up * camera.offset.y)
             }
         };
 
@@ -176,8 +180,6 @@ fn position_and_rotate_camera(
 
         desired_rotatation.rotate_x(x_angle);
         desired_rotatation.rotate_y(y_angle);
-
-        if camera.mode == CameraMode::ThirdPersonOrbit {}
 
         let slerp_rotation = transform
             .rotation
